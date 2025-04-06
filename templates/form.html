@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>შიდა ხარისხის კონტროლი</title>
+</head>
+<body>
+    <h1>შეიყვანე ხარისხის კონტროლის მონაცემი</h1>
+    <form method="post">
+        <label>ტესტის სახელი:</label><br>
+        <input type="text" name="test_name"><br><br>
+
+        <label>შედეგი:</label><br>
+        <input type="number" step="any" name="result"><br><br>
+
+        <label>თარიღი:</label><br>
+        <input type="date" name="date"><br><br>
+
+        <label>დონე:</label><br>
+        <select name="level">
+            <option>Low</option>
+            <option>Normal</option>
+            <option>High</option>
+        </select><br><br>
+
+        <label>მინიმალური ზღვარი:</label><br>
+        <input type="number" step="any" name="min"><br><br>
+
+        <label>მაქსიმალური ზღვარი:</label><br>
+        <input type="number" step="any" name="max"><br><br>
+
+        <button type="submit">გაგზავნა</button>
+    </form>
+</body>
+</html>
