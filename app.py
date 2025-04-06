@@ -1,12 +1,10 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-import os
 
 app = Flask(__name__)
 
-# ბაზის ფაილის მისამართი
-basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.db')
+# PostgreSQL ბაზის URL
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://mariam_user:D8HPzG6OsPhjYH1z5Bj5q1PzQyvHsvtt@dpg-cvp948odl3ps73fujho0-a.oregon-postgres.render.com/lis_flask_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -31,7 +29,6 @@ def home():
         min_value = request.form['min']
         max_value = request.form['max']
 
-        # მონაცემის შენახვა
         new_result = TestResult(
             test_name=test_name,
             result=result,
@@ -53,7 +50,7 @@ def results():
     all_results = TestResult.query.all()
     return render_template('results.html', results=all_results)
 
-# ბაზის შექმნა და აპის გაშვება
+# ბაზის შექმნა
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
