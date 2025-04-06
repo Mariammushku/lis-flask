@@ -1,7 +1,26 @@
 from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
 
+# ბაზის ფაილის მისამართი
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+# მონაცემთა მოდელი
+class TestResult(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    test_name = db.Column(db.String(100))
+    result = db.Column(db.String(100))
+    date = db.Column(db.String(20))
+    level = db.Column(db.String(20))
+    min = db.Column(db.String(20))
+    max = db.Column(db.String(20))
+
+# მთავარი გვერდი
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
@@ -12,13 +31,25 @@ def home():
         min_value = request.form['min']
         max_value = request.form['max']
 
-        print("მონაცემები მიღებულია:")
-        print(f"ტესტი: {test_name}, შედეგი: {result}, თარიღი: {date}, დონე: {level}, მინ: {min_value}, მაქს: {max_value}")
+        # მონაცემის შენახვა
+        new_result = TestResult(
+            test_name=test_name,
+            result=result,
+            date=date,
+            level=level,
+            min=min_value,
+            max=max_value
+        )
+        db.session.add(new_result)
+        db.session.commit()
 
-        return f"მონაცემები მიღებულია ტესტისთვის: {test_name}"
+        return f"ტესტი '{test_name}' წარმატებით შენახულია!"
 
     return render_template('form.html')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    # პირველი გაშვებისას ბაზის შექმნა
+    with app.app_context():
+        db.create_all()
 
+    app.run(debug=True, host='0.0.0.0')
