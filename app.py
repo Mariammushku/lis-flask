@@ -110,7 +110,7 @@ def results():
     return render_template('results.html', results=all_results)
 
 # ბაზის შექმნა
-if _name_ == '_main_':
+if _name_ == '__main__':
     with app.app_context():
         db.create_all()
     app.run(debug=True, host='0.0.0.0')
