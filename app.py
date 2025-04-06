@@ -51,9 +51,56 @@ def home():
         db.session.commit()
 
         return f"""
-        <h2>ტესტი '{test_name}' წარმატებით შენახულია!</h2>
-        <a href='/'><button>მთავარ გვერდზე დაბრუნება</button></a>
-        """
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <title>შენახვა წარმატებულია</title>
+    <style>
+        body {{
+            font-family: "Segoe UI", sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }}
+        .box {{
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }}
+        h2 {{
+            color: #4CAF50;
+            margin-bottom: 25px;
+        }}
+        button {{
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }}
+        button:hover {{
+            background-color: #45a049;
+        }}
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>ტესტი '<span style="color:#333;">{test_name}</span>' წარმატებით შენახულია!</h2>
+        <a href="/"><button>მთავარ გვერდზე დაბრუნება</button></a>
+    </div>
+</body>
+</html>
+"""
+
 
     return render_template('form.html')
 
