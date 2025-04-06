@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 # PostgreSQL ბაზის URL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://mariam_user:D8HPzG6OsPhjYH1z5Bj5q1PzQyvHsvtt@dpg-cvp948odl3ps73fujho0-a.oregon-postgres.render.com/lis_flask_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
