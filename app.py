@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
 
-# PostgreSQL ბაზის URL
+# ბაზის მისამართი - Render-ის Environment Variable-დან
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
 # მონაცემთა მოდელი
@@ -50,7 +52,7 @@ def results():
     all_results = TestResult.query.all()
     return render_template('results.html', results=all_results)
 
-# ბაზის შექმნა
+# ბაზის შექმნა (მხოლოდ ლოკალურად გაშვებისას)
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
