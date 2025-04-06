@@ -1,34 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="ka">
 <head>
-    <title>შიდა ხარისხის კონტროლი</title>
+    <meta charset="UTF-8">
+    <title>შეიყვანე შედეგი</title>
 </head>
 <body>
-    <h1>შეიყვანე ხარისხის კონტროლის მონაცემი</h1>
-    <form method="post">
+    <h1>შეიყვანე ხარისხის კონტროლის მონაცემები</h1>
+
+    <form method="POST">
         <label>ტესტის სახელი:</label><br>
         <input type="text" name="test_name"><br><br>
 
         <label>შედეგი:</label><br>
-        <input type="number" step="any" name="result"><br><br>
+        <input type="text" name="result"><br><br>
 
         <label>თარიღი:</label><br>
         <input type="date" name="date"><br><br>
 
         <label>დონე:</label><br>
         <select name="level">
-            <option>Low</option>
-            <option>Normal</option>
-            <option>High</option>
+            <option value="Low">Low</option>
+            <option value="Normal">Normal</option>
+            <option value="High">High</option>
         </select><br><br>
 
         <label>მინიმალური ზღვარი:</label><br>
-        <input type="number" step="any" name="min"><br><br>
+        <input type="text" name="min"><br><br>
 
         <label>მაქსიმალური ზღვარი:</label><br>
-        <input type="number" step="any" name="max"><br><br>
+        <input type="text" name="max"><br><br>
 
         <button type="submit">გაგზავნა</button>
     </form>
+
+    <br><br>
+
+    <div style="padding: 10px; border: 1px solid #ccc; display: inline-block;">
+        <a href="{{ url_for('results') }}">
+            <button type="button">შედეგების ნახვა</button>
+        </a>
+    </div>
 </body>
 </html>
