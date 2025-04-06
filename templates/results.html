@@ -2,33 +2,93 @@
 <html lang="ka">
 <head>
     <meta charset="UTF-8">
-    <title>შედეგების სია</title>
+    <title>შედეგების ნახვა</title>
+    <style>
+        body {
+            font-family: "Sylfaen", sans-serif;
+            padding: 30px;
+            background-color: #f8f8f8;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .back-button button {
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            background-color: #3c8dbc;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .back-button button:hover {
+            background-color: #367fa9;
+        }
+    </style>
 </head>
 <body>
     <h1>შიდა ხარისხის კონტროლის შედეგები</h1>
-    <table border="1">
-        <tr>
-            <th>ტესტი</th>
-            <th>LOT</th>
-            <th>შედეგი</th>
-            <th>თარიღი</th>
-            <th>დონე</th>
-            <th>მინ</th>
-            <th>მაქს</th>
-        </tr>
-        {% for r in results %}
-        <tr>
-            <td>{{ r.test_name }}</td>
-            <td>{{ r.lot_number }}</td>
-            <td>{{ r.result }}</td>
-            <td>{{ r.date }}</td>
-            <td>{{ r.level }}</td>
-            <td>{{ r.min }}</td>
-            <td>{{ r.max }}</td>
-        </tr>
-        {% endfor %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>ტესტი</th>
+                <th>LOT</th>
+                <th>შედეგი</th>
+                <th>თარიღი</th>
+                <th>დონე</th>
+                <th>მინ</th>
+                <th>მაქს</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result.test_name }}</td>
+                <td>{{ result.lot_number }}</td>
+                <td>{{ result.result }}</td>
+                <td>{{ result.date }}</td>
+                <td>{{ result.level }}</td>
+                <td>{{ result.min }}</td>
+                <td>{{ result.max }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
-    <br>
-    <a href="/"><button>მთავარ გვერდზე დაბრუნება</button></a>
+
+    <div class="back-button">
+        <a href="/"><button>მთავარ გვერდზე დაბრუნება</button></a>
+    </div>
 </body>
 </html>
