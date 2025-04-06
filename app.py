@@ -4,21 +4,22 @@ import os
 
 app = Flask(__name__)
 
+# Render-ის გარემოს ცვლადი
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# მონაცემთა მოდელი
+# მოდელი
 class TestResult(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    test_name = db.Column(db.String(100))
-    result = db.Column(db.String(100))
-    date = db.Column(db.String(20))
-    level = db.Column(db.String(20))
-    min = db.Column(db.String(20))
-    max = db.Column(db.String(20))
-    lot_number = db.Column(db.String(50))  # ახალი ველი
+    test_name = db.Column(db.String(100), nullable=False)
+    result = db.Column(db.String(100), nullable=False)
+    date = db.Column(db.String(20), nullable=False)
+    level = db.Column(db.String(20), nullable=False)
+    min = db.Column(db.String(20), nullable=False)
+    max = db.Column(db.String(20), nullable=False)
+    lot_number = db.Column(db.String(50), nullable=False)
 
 # მთავარი გვერდი
 @app.route('/', methods=['GET', 'POST'])
@@ -33,7 +34,7 @@ def home():
         lot_number = request.form['lot_number']
 
         if not all([test_name, result, date, level, min_value, max_value, lot_number]):
-            return "გთხოვთ შეავსოთ ყველა ველი!"
+            return "<h3 style='color:red;'>გთხოვთ შეავსოთ ყველა ველი.</h3><a href='/'><button>დაბრუნება</button></a>"
 
         new_result = TestResult(
             test_name=test_name,
@@ -49,9 +50,7 @@ def home():
 
         return f"""
         <h2>ტესტი '{test_name}' წარმატებით შენახულია!</h2>
-        <a href='/'>
-            <button>მთავარ გვერდზე დაბრუნება</button>
-        </a>
+        <a href='/'><button>მთავარ გვერდზე დაბრუნება</button></a>
         """
 
     return render_template('form.html')
@@ -62,6 +61,7 @@ def results():
     all_results = TestResult.query.all()
     return render_template('results.html', results=all_results)
 
+# ბაზის შექმნა ლოკალურად
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
