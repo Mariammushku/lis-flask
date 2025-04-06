@@ -2,45 +2,62 @@
 <html lang="ka">
 <head>
     <meta charset="UTF-8">
-    <title>შედეგების გვერდი</title>
+    <title>შედეგები</title>
     <style>
         body {
             font-family: "Segoe UI", sans-serif;
-            background: #f7f7f7;
-            padding: 30px;
+            background-color: #fafafa;
+            padding: 20px;
         }
-        h2 {
+        h1 {
             text-align: center;
             color: #333;
         }
         table {
-            width: 100%;
             border-collapse: collapse;
-            background: white;
+            width: 95%;
+            margin: 0 auto;
+            background-color: white;
         }
         th, td {
-            padding: 12px;
             border: 1px solid #ddd;
+            padding: 10px 12px;
             text-align: center;
         }
         th {
-            background-color: #333;
-            color: white;
+            background-color: #f2f2f2;
+            color: #333;
         }
         .green {
-            background-color: #e0f7e9;
-            color: #1c662d;
+            color: green;
             font-weight: bold;
         }
         .red {
-            background-color: #fddede;
-            color: #b70000;
+            color: red;
             font-weight: bold;
+        }
+        .back-button {
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+        }
+        .back-button a button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .back-button a button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <h2>შიდა ხარისხის კონტროლის შედეგები</h2>
+    <h1>შიდა ხარისხის კონტროლის შედეგები</h1>
+
     <table>
         <tr>
             <th>ტესტი</th>
@@ -53,23 +70,24 @@
             <th>გადაკალიბრდა</th>
             <th>კონტროლის რეტესტი</th>
         </tr>
-        {% for r in results %}
+        {% for row in results %}
         <tr>
-            <td>{{ r.test_name }}</td>
-            <td>{{ r.lot_number }}</td>
-            <td class="{% if r.result|float < r.min|float or r.result|float > r.max|float %}red{% else %}green{% endif %}">{{ r.result }}</td>
-            <td>{{ r.date }}</td>
-            <td>{{ r.level }}</td>
-            <td>{{ r.min }}</td>
-            <td>{{ r.max }}</td>
-            <td>{{ r.recalibrated or '-' }}</td>
-            <td>{{ r.retest_result or '-' }}</td>
+            <td>{{ row.test_name }}</td>
+            <td>{{ row.lot_number }}</td>
+            <td class="{% if row.result and row.min and row.max and row.result|float >= row.min|float and row.result|float <= row.max|float %}green{% else %}red{% endif %}">
+                {{ row.result }}
+            </td>
+            <td>{{ row.date }}</td>
+            <td>{{ row.level }}</td>
+            <td>{{ row.min }}</td>
+            <td>{{ row.max }}</td>
+            <td>{{ row.recalibrated }}</td>
+            <td>{{ row.retest_result }}</td>
         </tr>
         {% endfor %}
     </table>
 
-    <br>
-    <div style="text-align: center;">
+    <div class="back-button">
         <a href="/"><button>მთავარ გვერდზე დაბრუნება</button></a>
     </div>
 </body>
