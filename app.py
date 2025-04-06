@@ -20,7 +20,7 @@ class TestResult(db.Model):
     min = db.Column(db.String(20))
     max = db.Column(db.String(20))
 
-# მთავარი გვერდი
+# მთავარი გვერდი - ფორმა
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
@@ -47,9 +47,14 @@ def home():
 
     return render_template('form.html')
 
+# შედეგების გვერდი
+@app.route('/results')
+def results():
+    all_results = TestResult.query.all()
+    return render_template('results.html', results=all_results)
+
+# ბაზის შექმნა და აპის გაშვება
 if __name__ == '__main__':
-    # პირველი გაშვებისას ბაზის შექმნა
     with app.app_context():
         db.create_all()
-
     app.run(debug=True, host='0.0.0.0')
