@@ -2,92 +2,74 @@
 <html lang="ka">
 <head>
     <meta charset="UTF-8">
-    <title>შედეგების ნახვა</title>
+    <title>შედეგების გვერდი</title>
     <style>
         body {
-            font-family: "Sylfaen", sans-serif;
+            font-family: "Segoe UI", sans-serif;
+            background: #f7f7f7;
             padding: 30px;
-            background-color: #f8f8f8;
         }
-
-        h1 {
-            font-size: 28px;
-            margin-bottom: 20px;
+        h2 {
+            text-align: center;
+            color: #333;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background: white;
         }
-
         th, td {
-            padding: 10px 15px;
-            border: 1px solid #ccc;
+            padding: 12px;
+            border: 1px solid #ddd;
             text-align: center;
         }
-
         th {
-            background-color: #f0f0f0;
+            background-color: #333;
+            color: white;
+        }
+        .green {
+            background-color: #e0f7e9;
+            color: #1c662d;
             font-weight: bold;
         }
-
-        tr:hover {
-            background-color: #f9f9f9;
-        }
-
-        .back-button {
-            margin-top: 20px;
-            display: inline-block;
-        }
-
-        .back-button button {
-            padding: 10px 20px;
-            font-size: 14px;
-            border: none;
-            background-color: #3c8dbc;
-            color: white;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        .back-button button:hover {
-            background-color: #367fa9;
+        .red {
+            background-color: #fddede;
+            color: #b70000;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <h1>შიდა ხარისხის კონტროლის შედეგები</h1>
-
+    <h2>შიდა ხარისხის კონტროლის შედეგები</h2>
     <table>
-        <thead>
-            <tr>
-                <th>ტესტი</th>
-                <th>LOT</th>
-                <th>შედეგი</th>
-                <th>თარიღი</th>
-                <th>დონე</th>
-                <th>მინ</th>
-                <th>მაქს</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for result in results %}
-            <tr>
-                <td>{{ result.test_name }}</td>
-                <td>{{ result.lot_number }}</td>
-                <td>{{ result.result }}</td>
-                <td>{{ result.date }}</td>
-                <td>{{ result.level }}</td>
-                <td>{{ result.min }}</td>
-                <td>{{ result.max }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
+        <tr>
+            <th>ტესტი</th>
+            <th>LOT</th>
+            <th>შედეგი</th>
+            <th>თარიღი</th>
+            <th>დონე</th>
+            <th>მინ</th>
+            <th>მაქს</th>
+            <th>გადაკალიბრდა</th>
+            <th>კონტროლის რეტესტი</th>
+        </tr>
+        {% for r in results %}
+        <tr>
+            <td>{{ r.test_name }}</td>
+            <td>{{ r.lot_number }}</td>
+            <td class="{% if r.result|float < r.min|float or r.result|float > r.max|float %}red{% else %}green{% endif %}">{{ r.result }}</td>
+            <td>{{ r.date }}</td>
+            <td>{{ r.level }}</td>
+            <td>{{ r.min }}</td>
+            <td>{{ r.max }}</td>
+            <td>{{ r.recalibrated or '-' }}</td>
+            <td>{{ r.retest_result or '-' }}</td>
+        </tr>
+        {% endfor %}
     </table>
 
-    <div class="back-button">
+    <br>
+    <div style="text-align: center;">
         <a href="/"><button>მთავარ გვერდზე დაბრუნება</button></a>
     </div>
 </body>
