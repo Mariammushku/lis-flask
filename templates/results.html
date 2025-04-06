@@ -3,44 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>შედეგების სია</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 30px;
-        }
-        h1 {
-            color: #2c3e50;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #f8f8f8;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #2980b9;
-        }
-    </style>
 </head>
 <body>
     <h1>შიდა ხარისხის კონტროლის შედეგები</h1>
-
-    <table>
+    <table border="1">
         <tr>
             <th>ტესტი</th>
+            <th>LOT</th>
             <th>შედეგი</th>
             <th>თარიღი</th>
             <th>დონე</th>
@@ -50,6 +19,7 @@
         {% for r in results %}
         <tr>
             <td>{{ r.test_name }}</td>
+            <td>{{ r.lot_number }}</td>
             <td>{{ r.result }}</td>
             <td>{{ r.date }}</td>
             <td>{{ r.level }}</td>
@@ -58,7 +28,7 @@
         </tr>
         {% endfor %}
     </table>
-
-    <a href="/">← უკან დაბრუნება</a>
+    <br>
+    <a href="/"><button>მთავარ გვერდზე დაბრუნება</button></a>
 </body>
 </html>

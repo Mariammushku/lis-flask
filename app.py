@@ -12,14 +12,16 @@ db = SQLAlchemy(app)
 
 # მოდელი
 class TestResult(db.Model):
+    __tablename__ = 'test_result_v2'  # ახალი ცხრილის სახელი
+
     id = db.Column(db.Integer, primary_key=True)
-    test_name = db.Column(db.String(100), nullable=False)
-    result = db.Column(db.String(100), nullable=False)
-    date = db.Column(db.String(20), nullable=False)
-    level = db.Column(db.String(20), nullable=False)
-    min = db.Column(db.String(20), nullable=False)
-    max = db.Column(db.String(20), nullable=False)
-    lot_number = db.Column(db.String(50), nullable=False)
+    test_name = db.Column(db.String(100))
+    result = db.Column(db.String(100))
+    date = db.Column(db.String(20))
+    level = db.Column(db.String(20))
+    min = db.Column(db.String(20))
+    max = db.Column(db.String(20))
+    lot_number = db.Column(db.String(50))  # ახალი ველი
 
 # მთავარი გვერდი
 @app.route('/', methods=['GET', 'POST'])
