@@ -4,7 +4,6 @@ import os
 
 app = Flask(__name__)
 
-# ბაზის მისამართი - Render-ის Environment Variable-დან
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -19,8 +18,9 @@ class TestResult(db.Model):
     level = db.Column(db.String(20))
     min = db.Column(db.String(20))
     max = db.Column(db.String(20))
+    lot_number = db.Column(db.String(50))  # ახალი ველი
 
-# მთავარი გვერდი - ფორმა
+# მთავარი გვერდი
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
@@ -30,6 +30,10 @@ def home():
         level = request.form['level']
         min_value = request.form['min']
         max_value = request.form['max']
+        lot_number = request.form['lot_number']
+
+        if not all([test_name, result, date, level, min_value, max_value, lot_number]):
+            return "გთხოვთ შეავსოთ ყველა ველი!"
 
         new_result = TestResult(
             test_name=test_name,
@@ -37,18 +41,18 @@ def home():
             date=date,
             level=level,
             min=min_value,
-            max=max_value
+            max=max_value,
+            lot_number=lot_number
         )
         db.session.add(new_result)
         db.session.commit()
 
         return f"""
-    <h2>ტესტი '{test_name}' წარმატებით შენახულია!</h2>
-    <a href='/'>
-        <button>მთავარ გვერდზე დაბრუნება</button>
-    </a>
-"""
-
+        <h2>ტესტი '{test_name}' წარმატებით შენახულია!</h2>
+        <a href='/'>
+            <button>მთავარ გვერდზე დაბრუნება</button>
+        </a>
+        """
 
     return render_template('form.html')
 
@@ -58,7 +62,6 @@ def results():
     all_results = TestResult.query.all()
     return render_template('results.html', results=all_results)
 
-# ბაზის შექმნა (მხოლოდ ლოკალურად გაშვებისას)
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
