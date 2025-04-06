@@ -2,80 +2,100 @@
 <html lang="ka">
 <head>
     <meta charset="UTF-8">
-    <title>მონაცემების შეყვანა</title>
+    <title>შეიყვანე შედეგი</title>
     <style>
         body {
             font-family: "Segoe UI", sans-serif;
-            background-color: #f2f2f2;
-            padding: 30px;
-        }
-        h1 {
+            background-color: #f5f5f5;
+            padding: 40px;
             color: #333;
+        }
+
+        h1 {
             text-align: center;
+            margin-bottom: 30px;
+            font-size: 26px;
         }
+
         form {
-            width: 400px;
+            max-width: 500px;
             margin: 0 auto;
-            background-color: #fff;
-            padding: 25px 30px;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         label {
             display: block;
             margin-top: 15px;
-            color: #555;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
-        input, select {
+
+        input[type="text"],
+        input[type="date"],
+        select {
             width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border-radius: 6px;
+            padding: 8px 10px;
+            font-size: 16px;
             border: 1px solid #ccc;
+            border-radius: 5px;
         }
+
         button {
             margin-top: 20px;
-            padding: 10px;
             width: 100%;
+            padding: 10px;
             background-color: #4CAF50;
             color: white;
-            font-size: 16px;
             border: none;
-            border-radius: 6px;
+            font-size: 16px;
+            border-radius: 5px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #45a049;
         }
-        .nav-button {
-            display: block;
-            margin: 20px auto 0;
+
+        .link-container {
             text-align: center;
+            margin-top: 25px;
+        }
+
+        .link-container a button {
+            background-color: #555;
+        }
+
+        .link-container a button:hover {
+            background-color: #333;
         }
     </style>
 </head>
 <body>
     <h1>შეიყვანე ხარისხის კონტროლის მონაცემები</h1>
+
     <form method="POST">
         <label>ტესტის სახელი:</label>
         <select name="test_name" required>
-            <option value="">-- აირჩიეთ ტესტი --</option>
-            <option>ALT/ GPT</option>
-            <option>AST/ GOT</option>
-            <option>GGT</option>
-            <option>PTO</option>
-            <option>ALB</option>
-            <option>GLU</option>
-            <option>CHO</option>
-            <option>TRG</option>
-            <option>HDL</option>
-            <option>LIP</option>
-            <option>PHO</option>
-            <option>FE</option>
-            <option>Ca</option>
-            <option>RF</option>
-            <option>ALK</option>
-            <option>Mg</option>
+            <option value="">--აირჩიე ტესტი--</option>
+            <option>ალანინამინოტრანსფერაზა ALT/ GPT</option>
+            <option>ასპარტატამინოტრანსფერაზა AST/ GOT</option>
+            <option>გამაგლუტამილტრანსფერაზა GGT</option>
+            <option>საერთო ცილა PTO</option>
+            <option>ალბუმინი ALB</option>
+            <option>გლუკოზა GLU</option>
+            <option>ქოლესტერინი CHO</option>
+            <option>ტრიგლიცერიდი TRG</option>
+            <option>მაღალი სიმკვრივის ლპ- ქოლესტერინი HDL</option>
+            <option>ლიპაზა LIP</option>
+            <option>ფოსფორი PHO</option>
+            <option>რკინა FE</option>
+            <option>კალციუმი Ca</option>
+            <option>რევმატოიდული ფაქტორი RF</option>
+            <option>ტუტე ფოსფატაზა ALK</option>
+            <option>მაგნიუმი Mg</option>
         </select>
 
         <label>LOT Number:</label>
@@ -88,29 +108,25 @@
         <input type="date" name="date" required>
 
         <label>დონე:</label>
-        <select name="level" required>
+        <select name="level">
             <option value="Low">Low</option>
             <option value="Normal">Normal</option>
             <option value="High">High</option>
         </select>
 
         <label>მინიმალური ზღვარი:</label>
-        <input type="text" name="min" required>
+        <input type="text" name="min">
 
         <label>მაქსიმალური ზღვარი:</label>
-        <input type="text" name="max" required>
+        <input type="text" name="max">
 
-        <label>გადაკალიბრდა? (დიახ / არა):</label>
-        <input type="text" name="recalibrated">
-
-        <label>კონტროლის რეტესტის შედეგი:</label>
-        <input type="text" name="retest_result">
-
-        <button type="submit">შენახვა</button>
+        <button type="submit">გაგზავნა</button>
     </form>
 
-    <div class="nav-button">
-        <a href="/results"><button>შედეგების ნახვა</button></a>
+    <div class="link-container">
+        <a href="{{ url_for('results') }}">
+            <button type="button">შედეგების ნახვა</button>
+        </a>
     </div>
 </body>
 </html>

@@ -2,56 +2,58 @@
 <html lang="ka">
 <head>
     <meta charset="UTF-8">
-    <title>შედეგები</title>
+    <title>შედეგების ნახვა</title>
     <style>
         body {
-            font-family: "Segoe UI", sans-serif;
-            background-color: #fafafa;
-            padding: 20px;
+            font-family: "Sylfaen", sans-serif;
+            padding: 30px;
+            background-color: #f8f8f8;
         }
+
         h1 {
-            text-align: center;
-            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
         }
+
         table {
+            width: 100%;
             border-collapse: collapse;
-            width: 95%;
-            margin: 0 auto;
             background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
+
         th, td {
-            border: 1px solid #ddd;
-            padding: 10px 12px;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
             text-align: center;
         }
+
         th {
-            background-color: #f2f2f2;
-            color: #333;
-        }
-        .green {
-            color: green;
+            background-color: #f0f0f0;
             font-weight: bold;
         }
-        .red {
-            color: red;
-            font-weight: bold;
+
+        tr:hover {
+            background-color: #f9f9f9;
         }
+
         .back-button {
-            display: block;
-            margin: 20px auto;
-            text-align: center;
+            margin-top: 20px;
+            display: inline-block;
         }
-        .back-button a button {
+
+        .back-button button {
             padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            font-size: 16px;
+            font-size: 14px;
             border: none;
-            border-radius: 6px;
+            background-color: #3c8dbc;
+            color: white;
             cursor: pointer;
+            border-radius: 4px;
         }
-        .back-button a button:hover {
-            background-color: #45a049;
+
+        .back-button button:hover {
+            background-color: #367fa9;
         }
     </style>
 </head>
@@ -59,32 +61,30 @@
     <h1>შიდა ხარისხის კონტროლის შედეგები</h1>
 
     <table>
-        <tr>
-            <th>ტესტი</th>
-            <th>LOT</th>
-            <th>შედეგი</th>
-            <th>თარიღი</th>
-            <th>დონე</th>
-            <th>მინ</th>
-            <th>მაქს</th>
-            <th>გადაკალიბრდა</th>
-            <th>კონტროლის რეტესტი</th>
-        </tr>
-        {% for row in results %}
-        <tr>
-            <td>{{ row.test_name }}</td>
-            <td>{{ row.lot_number }}</td>
-            <td class="{% if row.result and row.min and row.max and row.result|float >= row.min|float and row.result|float <= row.max|float %}green{% else %}red{% endif %}">
-                {{ row.result }}
-            </td>
-            <td>{{ row.date }}</td>
-            <td>{{ row.level }}</td>
-            <td>{{ row.min }}</td>
-            <td>{{ row.max }}</td>
-            <td>{{ row.recalibrated }}</td>
-            <td>{{ row.retest_result }}</td>
-        </tr>
-        {% endfor %}
+        <thead>
+            <tr>
+                <th>ტესტი</th>
+                <th>LOT</th>
+                <th>შედეგი</th>
+                <th>თარიღი</th>
+                <th>დონე</th>
+                <th>მინ</th>
+                <th>მაქს</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result.test_name }}</td>
+                <td>{{ result.lot_number }}</td>
+                <td>{{ result.result }}</td>
+                <td>{{ result.date }}</td>
+                <td>{{ result.level }}</td>
+                <td>{{ result.min }}</td>
+                <td>{{ result.max }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
 
     <div class="back-button">
