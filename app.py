@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import os
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 # ბაზის მისამართი - Render-ის Environment Variable-დან
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
