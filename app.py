@@ -42,7 +42,13 @@ def home():
         db.session.add(new_result)
         db.session.commit()
 
-        return f"ტესტი '{test_name}' წარმატებით შენახულია!"
+        return f"""
+    <h2>ტესტი '{test_name}' წარმატებით შენახულია!</h2>
+    <a href='/'>
+        <button>მთავარ გვერდზე დაბრუნება</button>
+    </a>
+"""
+
 
     return render_template('form.html')
 
