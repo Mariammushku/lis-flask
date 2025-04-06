@@ -1,132 +1,117 @@
+from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
+import os
+
+app = Flask(__name__)
+
+# Render-ის გარემოს ცვლადი
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+# მოდელი
+class TestResult(db.Model):
+    __tablename__ = 'test_result_v2'  # ახალი ცხრილის სახელი
+
+    id = db.Column(db.Integer, primary_key=True)
+    test_name = db.Column(db.String(100))
+    result = db.Column(db.String(100))
+    date = db.Column(db.String(20))
+    level = db.Column(db.String(20))
+    min = db.Column(db.String(20))
+    max = db.Column(db.String(20))
+    lot_number = db.Column(db.String(50))  # ახალი ველი
+
+# მთავარი გვერდი
+@app.route('/', methods=['GET', 'POST'])
+def home():
+    if request.method == 'POST':
+        test_name = request.form['test_name']
+        result = request.form['result']
+        date = request.form['date']
+        level = request.form['level']
+        min_value = request.form['min']
+        max_value = request.form['max']
+        lot_number = request.form['lot_number']
+
+        if not all([test_name, result, date, level, min_value, max_value, lot_number]):
+            return "<h3 style='color:red;'>გთხოვთ შეავსოთ ყველა ველი.</h3><a href='/'><button>დაბრუნება</button></a>"
+
+        new_result = TestResult(
+            test_name=test_name,
+            result=result,
+            date=date,
+            level=level,
+            min=min_value,
+            max=max_value,
+            lot_number=lot_number
+        )
+        db.session.add(new_result)
+        db.session.commit()
+
+        return f"""
 <!DOCTYPE html>
 <html lang="ka">
 <head>
     <meta charset="UTF-8">
-    <title>შეიყვანე შედეგი</title>
+    <title>შენახვა წარმატებულია</title>
     <style>
-        body {
+        body {{
             font-family: "Segoe UI", sans-serif;
-            background-color: #f5f5f5;
-            padding: 40px;
-            color: #333;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 26px;
-        }
-
-        form {
-            max-width: 500px;
-            margin: 0 auto;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }}
+        .box {{
             background-color: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            display: block;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        input[type="text"],
-        input[type="date"],
-        select {
-            width: 100%;
-            padding: 8px 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button {
-            margin-top: 20px;
-            width: 100%;
-            padding: 10px;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }}
+        h2 {{
+            color: #4CAF50;
+            margin-bottom: 25px;
+        }}
+        button {{
             background-color: #4CAF50;
             color: white;
             border: none;
+            padding: 12px 25px;
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
-        }
-
-        button:hover {
+        }}
+        button:hover {{
             background-color: #45a049;
-        }
-
-        .link-container {
-            text-align: center;
-            margin-top: 25px;
-        }
-
-        .link-container a button {
-            background-color: #555;
-        }
-
-        .link-container a button:hover {
-            background-color: #333;
-        }
+        }}
     </style>
 </head>
 <body>
-    <h1>შეიყვანე ხარისხის კონტროლის მონაცემები</h1>
-
-    <form method="POST">
-        <label>ტესტის სახელი:</label>
-        <select name="test_name" required>
-            <option value="">--აირჩიე ტესტი--</option>
-            <option>ალანინამინოტრანსფერაზა ALT/ GPT</option>
-            <option>ასპარტატამინოტრანსფერაზა AST/ GOT</option>
-            <option>გამაგლუტამილტრანსფერაზა GGT</option>
-            <option>საერთო ცილა PTO</option>
-            <option>ალბუმინი ALB</option>
-            <option>გლუკოზა GLU</option>
-            <option>ქოლესტერინი CHO</option>
-            <option>ტრიგლიცერიდი TRG</option>
-            <option>მაღალი სიმკვრივის ლპ- ქოლესტერინი HDL</option>
-            <option>ლიპაზა LIP</option>
-            <option>ფოსფორი PHO</option>
-            <option>რკინა FE</option>
-            <option>კალციუმი Ca</option>
-            <option>რევმატოიდული ფაქტორი RF</option>
-            <option>ტუტე ფოსფატაზა ALK</option>
-            <option>მაგნიუმი Mg</option>
-        </select>
-
-        <label>LOT Number:</label>
-        <input type="text" name="lot_number" required>
-
-        <label>შედეგი:</label>
-        <input type="text" name="result" required>
-
-        <label>თარიღი:</label>
-        <input type="date" name="date" required>
-
-        <label>დონე:</label>
-        <select name="level">
-            <option value="Low">Low</option>
-            <option value="Normal">Normal</option>
-            <option value="High">High</option>
-        </select>
-
-        <label>მინიმალური ზღვარი:</label>
-        <input type="text" name="min">
-
-        <label>მაქსიმალური ზღვარი:</label>
-        <input type="text" name="max">
-
-        <button type="submit">გაგზავნა</button>
-    </form>
-
-    <div class="link-container">
-        <a href="{{ url_for('results') }}">
-            <button type="button">შედეგების ნახვა</button>
-        </a>
+    <div class="box">
+        <h2>ტესტი '<span style="color:#333;">{test_name}</span>' წარმატებით შენახულია!</h2>
+        <a href="/"><button>მთავარ გვერდზე დაბრუნება</button></a>
     </div>
 </body>
 </html>
+"""
+
+
+    return render_template('form.html')
+
+# შედეგების გვერდი
+@app.route('/results')
+def results():
+    all_results = TestResult.query.all()
+    return render_template('results.html', results=all_results)
+
+# ბაზის შექმნა ლოკალურად
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True, host='0.0.0.0')
