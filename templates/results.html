@@ -37,6 +37,16 @@
             background-color: #f9f9f9;
         }
 
+        .in-range {
+            color: green;
+            font-weight: bold;
+        }
+
+        .out-of-range {
+            color: red;
+            font-weight: bold;
+        }
+
         .back-button {
             margin-top: 20px;
             display: inline-block;
@@ -70,18 +80,26 @@
                 <th>დონე</th>
                 <th>მინ</th>
                 <th>მაქს</th>
+                <th>მოქმედება</th>
             </tr>
         </thead>
         <tbody>
-            {% for result in results %}
+            {% for r in results %}
             <tr>
-                <td>{{ result.test_name }}</td>
-                <td>{{ result.lot_number }}</td>
-                <td>{{ result.result }}</td>
-                <td>{{ result.date }}</td>
-                <td>{{ result.level }}</td>
-                <td>{{ result.min }}</td>
-                <td>{{ result.max }}</td>
+                <td>{{ r.test_name }}</td>
+                <td>{{ r.lot_number }}</td>
+                <td class="{% if r.result|float >= r.min|float and r.result|float <= r.max|float %}in-range{% else %}out-of-range{% endif %}">
+                    {{ r.result }}
+                </td>
+                <td>{{ r.date }}</td>
+                <td>{{ r.level }}</td>
+                <td>{{ r.min }}</td>
+                <td>{{ r.max }}</td>
+                <td>
+                    <a href="{{ url_for('edit_result', result_id=r.id) }}">✏️</a>
+                    |
+                    <a href="{{ url_for('delete_result', result_id=r.id) }}" onclick="return confirm('დარწმუნებული ხარ რომ გინდა წაშლა?')">🗑️</a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
