@@ -107,6 +107,12 @@ def home():
 def results():
     all_results = TestResult.query.all()
     return render_template('results.html', results=all_results)
+@app.route('/delete/<int:result_id>', methods=['GET', 'POST'])
+def delete_result(result_id):
+    result = TestResult.query.get_or_404(result_id)
+    db.session.delete(result)
+    db.session.commit()
+    return redirect(url_for('view_results'))
 
 # ბაზის შექმნა
 if __name__ == '__main__':  # ← ← ← ← ← აქ იყო შეცდომა

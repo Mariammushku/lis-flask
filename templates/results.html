@@ -66,6 +66,19 @@
             color: red;
             font-weight: bold;
         }
+
+        .delete-button {
+            background-color: crimson;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background-color: darkred;
+        }
     </style>
 </head>
 <body>
@@ -81,6 +94,7 @@
                 <th>დონე</th>
                 <th>მინ</th>
                 <th>მაქს</th>
+                <th>ქმედება</th>
             </tr>
         </thead>
         <tbody>
@@ -95,6 +109,11 @@
                 <td>{{ result.level }}</td>
                 <td>{{ result.min }}</td>
                 <td>{{ result.max }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('delete_result', result_id=result.id) }}" onsubmit="return confirm('დარწმუნებული ხარ, რომ გინდა წაშლა?');">
+                        <button type="submit" class="delete-button">წაშლა</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
