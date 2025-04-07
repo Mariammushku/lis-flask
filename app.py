@@ -112,7 +112,7 @@ def delete_result(result_id):
     result = TestResult.query.get_or_404(result_id)
     db.session.delete(result)
     db.session.commit()
-    return redirect(url_for('view_results'))
+    return redirect(url_for('results'))
 
 # ბაზის შექმნა
 if __name__ == '__main__':  # ← ← ← ← ← აქ იყო შეცდომა
