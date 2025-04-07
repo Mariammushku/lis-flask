@@ -88,7 +88,7 @@
             <tr>
                 <td>{{ result.test_name }}</td>
                 <td>{{ result.lot_number }}</td>
-                <td class="{% if result.result < result.min or result.result > result.max %}out-of-range{% else %}in-range{% endif %}">
+                <td class="{% if result.result|float < result.min|float or result.result|float > result.max|float %}out-of-range{% else %}in-range{% endif %}">
                     {{ result.result }}
                 </td>
                 <td>{{ result.date }}</td>
