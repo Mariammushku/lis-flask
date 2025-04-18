@@ -53,5 +53,9 @@ def results():
         test_results = TestResult.query.all()
     return render_template('results.html', test_results=test_results)
 
+import os
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
+
