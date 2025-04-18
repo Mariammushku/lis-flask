@@ -18,7 +18,7 @@ class TestResult(db.Model):
     lot_number = db.Column(db.String(100), nullable=True)
     recalibrated = db.Column(db.Boolean, nullable=True)
     retest_result = db.Column(db.String(100), nullable=True)
-    branch = db.Column(db.String(50), nullable=False)  # ➡️ ახალი ველი
+    branch = db.Column(db.String(50), nullable=False)
 
 with app.app_context():
     db.create_all()
@@ -27,17 +27,18 @@ with app.app_context():
 def index():
     if request.method == 'POST':
         recalibrated = request.form.get('recalibrated') == 'on'
+
         test_result = TestResult(
             test_name=request.form['test_name'],
             result=request.form['result'],
             date=request.form['date'],
-            level=request.form['level'],
+            level=request.form['level'],  # ➡️ დონე პირდაპირ ფორმიდან
             min=request.form['min'],
             max=request.form['max'],
             lot_number=request.form['lot_number'],
             recalibrated=recalibrated,
             retest_result=request.form['retest_result'],
-            branch=request.form['branch']  # ➡️ ფილიალი
+            branch=request.form['branch']
         )
         db.session.add(test_result)
         db.session.commit()
@@ -53,9 +54,6 @@ def results():
         test_results = TestResult.query.all()
     return render_template('results.html', test_results=test_results)
 
-import os
-
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
-

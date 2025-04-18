@@ -27,7 +27,13 @@
         <input type="date" name="date" required><br><br>
 
         <label for="level">დონე:</label>
-        <input type="text" name="level" required><br><br>
+        <select name="level" required>
+            <option value="">აირჩიე დონე</option>
+            <option value="LOW">LOW</option>
+            <option value="NORMAL">NORMAL</option>
+            <option value="HIGH">HIGH</option>
+        </select>
+        <br><br>
 
         <label for="min">მინიმალური:</label>
         <input type="number" step="any" name="min" required><br><br>
@@ -38,7 +44,7 @@
         <label for="lot_number">LOT ნომერი:</label>
         <input type="text" name="lot_number"><br><br>
 
-        <label for="recalibrated">გადამოწმებულია?:</label>
+        <label for="recalibrated">გადაკალიბრებულია?:</label>
         <input type="checkbox" name="recalibrated"><br><br>
 
         <label for="retest_result">გადამოწმების შედეგი:</label>
