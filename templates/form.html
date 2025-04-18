@@ -2,131 +2,49 @@
 <html lang="ka">
 <head>
     <meta charset="UTF-8">
-    <title>შეიყვანე შედეგი</title>
-    <style>
-        body {
-            font-family: "Segoe UI", sans-serif;
-            background-color: #f5f5f5;
-            padding: 40px;
-            color: #333;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 26px;
-        }
-
-        form {
-            max-width: 500px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            display: block;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        input[type="text"],
-        input[type="date"],
-        select {
-            width: 100%;
-            padding: 8px 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button {
-            margin-top: 20px;
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .link-container {
-            text-align: center;
-            margin-top: 25px;
-        }
-
-        .link-container a button {
-            background-color: #555;
-        }
-
-        .link-container a button:hover {
-            background-color: #333;
-        }
-    </style>
+    <title>შედეგების შეყვანა</title>
 </head>
 <body>
-    <h1>შეიყვანე ხარისხის კონტროლის მონაცემები</h1>
-
+    <h1>შეიყვანე ტესტის შედეგი</h1>
     <form method="POST">
-        <label>ტესტის სახელი:</label>
-        <select name="test_name" required>
-            <option value="">--აირჩიე ტესტი--</option>
-            <option>ალანინამინოტრანსფერაზა ALT/ GPT</option>
-            <option>ასპარტატამინოტრანსფერაზა AST/ GOT</option>
-            <option>გამაგლუტამილტრანსფერაზა GGT</option>
-            <option>საერთო ცილა PTO</option>
-            <option>ალბუმინი ALB</option>
-            <option>გლუკოზა GLU</option>
-            <option>ქოლესტერინი CHO</option>
-            <option>ტრიგლიცერიდი TRG</option>
-            <option>მაღალი სიმკვრივის ლპ- ქოლესტერინი HDL</option>
-            <option>ლიპაზა LIP</option>
-            <option>ფოსფორი PHO</option>
-            <option>რკინა FE</option>
-            <option>კალციუმი Ca</option>
-            <option>რევმატოიდული ფაქტორი RF</option>
-            <option>ტუტე ფოსფატაზა ALK</option>
-            <option>მაგნიუმი Mg</option>
+
+        <label for="branch">აირჩიე ფილიალი:</label>
+        <select name="branch" required>
+            <option value="">აირჩიე ფილიალი</option>
+            <option value="თბილისი">თბილისი</option>
+            <option value="ქუთაისი">ქუთაისი</option>
+            <option value="ზუგდიდი">ზუგდიდი</option>
         </select>
+        <br><br>
 
-        <label>LOT Number:</label>
-        <input type="text" name="lot_number" required>
+        <label for="test_name">ტესტის სახელი:</label>
+        <input type="text" name="test_name" required><br><br>
 
-        <label>შედეგი:</label>
-        <input type="text" name="result" required>
+        <label for="result">შედეგი:</label>
+        <input type="text" name="result" required><br><br>
 
-        <label>თარიღი:</label>
-        <input type="date" name="date" required>
+        <label for="date">თარიღი:</label>
+        <input type="date" name="date" required><br><br>
 
-        <label>დონე:</label>
-        <select name="level">
-            <option value="Low">Low</option>
-            <option value="Normal">Normal</option>
-            <option value="High">High</option>
-        </select>
+        <label for="level">დონე:</label>
+        <input type="text" name="level" required><br><br>
 
-        <label>მინიმალური ზღვარი:</label>
-        <input type="text" name="min">
+        <label for="min">მინიმალური:</label>
+        <input type="number" step="any" name="min" required><br><br>
 
-        <label>მაქსიმალური ზღვარი:</label>
-        <input type="text" name="max">
+        <label for="max">მაქსიმალური:</label>
+        <input type="number" step="any" name="max" required><br><br>
 
-        <button type="submit">გაგზავნა</button>
+        <label for="lot_number">LOT ნომერი:</label>
+        <input type="text" name="lot_number"><br><br>
+
+        <label for="recalibrated">გადამოწმებულია?:</label>
+        <input type="checkbox" name="recalibrated"><br><br>
+
+        <label for="retest_result">გადამოწმების შედეგი:</label>
+        <input type="text" name="retest_result"><br><br>
+
+        <button type="submit">შენახვა</button>
     </form>
-
-    <div class="link-container">
-        <a href="{{ url_for('results') }}">
-            <button type="button">შედეგების ნახვა</button>
-        </a>
-    </div>
 </body>
 </html>
