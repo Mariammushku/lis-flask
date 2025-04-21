@@ -3,94 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <title>შედეგების შეყვანა</title>
+    <!-- Bootstrap ბიბლიოთეკის ჩასმა -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>შეიყვანე ტესტის შედეგი</h1>
-    <form method="POST" enctype="multipart/form-data">
+<body class="bg-light">
 
-        <label for="branch">აირჩიე ფილიალი:</label>
-        <select name="branch" required>
-            <option value="">აირჩიე ფილიალი</option>
-            <option value="თბილისი">თბილისი</option>
-            <option value="ქუთაისი">ქუთაისი</option>
-            <option value="ზუგდიდი">ზუგდიდი</option>
-        </select>
-        <br><br>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">შეიყვანე ტესტის შედეგი</h1>
 
-        <label for="test_name">აირჩიე ტესტი:</label>
-        <select name="test_name" required>
-            <option value="">აირჩიე ტესტი</option>
-            <option value="ალანინამინოტრანსფერაზა ALT/ GPT">ალანინამინოტრანსფერაზა ALT/ GPT</option>
-            <option value="ასპარტატამინოტრანსფერაზა AST/ GOT">ასპარტატამინოტრანსფერაზა AST/ GOT</option>
-            <option value="გამაგლუტამილტრანსფერაზა GGT">გამაგლუტამილტრანსფერაზა GGT</option>
-            <option value="პირდაპირი ბილირუბინი BDDC">პირდაპირი ბილირუბინი BDDC</option>
-            <option value="საერთო ბილირუბინი BTDC">საერთო ბილირუბინი BTDC</option>
-            <option value="საერთო ცილა PTO">საერთო ცილა PTO</option>
-            <option value="ალბუმინი ALB">ალბუმინი ALB</option>
-            <option value="ALP">ALP</option>
-            <option value="ალფა ამილაზა AMYL">ალფა ამილაზა AMYL</option>
-            <option value="P amylase">P amylase</option>
-            <option value="ლიპაზა LIP">ლიპაზა LIP</option>
-            <option value="CK-NAC">CK-NAC</option>
-            <option value="კრეატინინი CRE">კრეატინინი CRE</option>
-            <option value="შარდოვანა URE">შარდოვანა URE</option>
-            <option value="შარდმჟავა UA">შარდმჟავა UA</option>
-            <option value="რკინა FE">რკინა FE</option>
-            <option value="კალციუმი Ca">კალციუმი Ca</option>
-            <option value="მაგნიუმი Mg">მაგნიუმი Mg</option>
-            <option value="ფოსფორი PHO">ფოსფორი PHO</option>
-            <option value="ქოლესტერინი CHO">ქოლესტერინი CHO</option>
-            <option value="ტრიგლიცერიდი TRG">ტრიგლიცერიდი TRG</option>
-            <option value="მაღალი სიმკვრივის ლპ-ქოლესტერინი HDL">მაღალი სიმკვრივის ლპ-ქოლესტერინი HDL</option>
-            <option value="გლუკოზა GLU">გლუკოზა GLU</option>
-            <option value="LDH">LDH</option>
-            <option value="CRP">CRP</option>
-            <option value="RF">RF</option>
-            <option value="ASO">ASO</option>
-        </select>
-        <br><br>
+        <form method="POST" enctype="multipart/form-data" class="p-4 bg-white rounded shadow-sm">
 
-        <label for="result">შედეგი:</label>
-        <input type="text" name="result" required><br><br>
+            <div class="mb-3">
+                <label for="branch" class="form-label">აირჩიე ფილიალი:</label>
+                <select name="branch" class="form-select" required>
+                    <option value="">აირჩიე ფილიალი</option>
+                    <option value="თბილისი">თბილისი</option>
+                    <option value="ქუთაისი">ქუთაისი</option>
+                    <option value="ზუგდიდი">ზუგდიდი</option>
+                </select>
+            </div>
 
-        <label for="date">თარიღი:</label>
-        <input type="date" name="date" required><br><br>
+            <div class="mb-3">
+                <label for="test_name" class="form-label">აირჩიე ტესტი:</label>
+                <select name="test_name" class="form-select" required>
+                    <option value="">აირჩიე ტესტი</option>
+                    <option value="ალანინამინოტრანსფერაზა ALT/ GPT">ალანინამინოტრანსფერაზა ALT/ GPT</option>
+                    <option value="ასპარტატამინოტრანსფერაზა AST/ GOT">ასპარტატამინოტრანსფერაზა AST/ GOT</option>
+                    <option value="გამაგლუტამილტრანსფერაზა GGT">გამაგლუტამილტრანსფერაზა GGT</option>
+                    <option value="პირდაპირი ბილირუბინი BDDC">პირდაპირი ბილირუბინი BDDC</option>
+                    <option value="საერთო ბილირუბინი BTDC">საერთო ბილირუბინი BTDC</option>
+                    <option value="საერთო ცილა PTO">საერთო ცილა PTO</option>
+                    <option value="ალბუმინი ALB">ალბუმინი ALB</option>
+                    <option value="ALP">ALP</option>
+                    <option value="ალფა ამილაზა AMYL">ალფა ამილაზა AMYL</option>
+                    <option value="P amylase">P amylase</option>
+                    <option value="ლიპაზა LIP">ლიპაზა LIP</option>
+                    <option value="CK-NAC">CK-NAC</option>
+                    <option value="კრეატინინი CRE">კრეატინინი CRE</option>
+                    <option value="შარდოვანა URE">შარდოვანა URE</option>
+                    <option value="შარდმჟავა UA">შარდმჟავა UA</option>
+                    <option value="რკინა FE">რკინა FE</option>
+                    <option value="კალციუმი Ca">კალციუმი Ca</option>
+                    <option value="მაგნიუმი Mg">მაგნიუმი Mg</option>
+                    <option value="ფოსფორი PHO">ფოსფორი PHO</option>
+                    <option value="ქოლესტერინი CHO">ქოლესტერინი CHO</option>
+                    <option value="ტრიგლიცერიდი TRG">ტრიგლიცერიდი TRG</option>
+                    <option value="მაღალი სიმკვრივის ლპ-ქოლესტერინი HDL">მაღალი სიმკვრივის ლპ-ქოლესტერინი HDL</option>
+                    <option value="გლუკოზა GLU">გლუკოზა GLU</option>
+                    <option value="LDH">LDH</option>
+                    <option value="CRP">CRP</option>
+                    <option value="RF">RF</option>
+                    <option value="ASO">ASO</option>
+                </select>
+            </div>
 
-        <label for="level">დონე:</label>
-        <select name="level" required>
-            <option value="">აირჩიე დონე</option>
-            <option value="LOW">LOW</option>
-            <option value="NORMAL">NORMAL</option>
-            <option value="HIGH">HIGH</option>
-        </select>
-        <br><br>
+            <div class="mb-3">
+                <label for="result" class="form-label">შედეგი:</label>
+                <input type="text" name="result" class="form-control" required>
+            </div>
 
-        <label for="min">მინიმალური:</label>
-        <input type="number" step="any" name="min" required><br><br>
+            <div class="mb-3">
+                <label for="date" class="form-label">თარიღი:</label>
+                <input type="date" name="date" class="form-control" required>
+            </div>
 
-        <label for="max">მაქსიმალური:</label>
-        <input type="number" step="any" name="max" required><br><br>
+            <div class="mb-3">
+                <label for="level" class="form-label">დონე:</label>
+                <select name="level" class="form-select" required>
+                    <option value="">აირჩიე დონე</option>
+                    <option value="LOW">LOW</option>
+                    <option value="NORMAL">NORMAL</option>
+                    <option value="HIGH">HIGH</option>
+                </select>
+            </div>
 
-        <label for="lot_number">LOT ნომერი:</label>
-        <input type="text" name="lot_number"><br><br>
+            <div class="mb-3">
+                <label for="min" class="form-label">მინიმალური:</label>
+                <input type="number" step="any" name="min" class="form-control" required>
+            </div>
 
-        <label for="recalibrated">გადაკალიბრებულია?:</label>
-        <input type="checkbox" name="recalibrated"><br><br>
+            <div class="mb-3">
+                <label for="max" class="form-label">მაქსიმალური:</label>
+                <input type="number" step="any" name="max" class="form-control" required>
+            </div>
 
-        <label for="retest_result">გადამოწმების შედეგი:</label>
-        <input type="text" name="retest_result"><br><br>
+            <div class="mb-3">
+                <label for="lot_number" class="form-label">LOT ნომერი:</label>
+                <input type="text" name="lot_number" class="form-control">
+            </div>
 
-        <label for="file">ატვირთე ფაილი (სურვილისამებრ):</label>
-        <input type="file" name="file" accept=".pdf,.xlsx,.xls,image/*"><br><br>
+            <div class="form-check mb-3">
+                <input type="checkbox" name="recalibrated" class="form-check-input" id="recalibrated">
+                <label for="recalibrated" class="form-check-label">გადაკალიბრებულია?</label>
+            </div>
 
-        <button type="submit">შენახვა</button>
-    </form>
+            <div class="mb-3">
+                <label for="retest_result" class="form-label">გადამოწმების შედეგი:</label>
+                <input type="text" name="retest_result" class="form-control">
+            </div>
 
-    <br><br>
+            <div class="mb-3">
+                <label for="file" class="form-label">ატვირთე ფაილი (სურვილისამებრ):</label>
+                <input type="file" name="file" class="form-control" accept=".pdf,.xlsx,.xls,image/*">
+            </div>
 
-    <a href="/results" style="text-decoration:none;">
-        <button type="button">შედეგების ნახვა</button>
-    </a>
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-success">შენახვა</button>
+                <a href="/results" class="btn btn-primary">შედეგების ნახვა</a>
+            </div>
+
+        </form>
+    </div>
 
 </body>
 </html>
