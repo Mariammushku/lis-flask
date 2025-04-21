@@ -72,9 +72,19 @@ def results():
         test_results = TestResult.query.all()
     return render_template('results.html', test_results=test_results)
 
+from flask import send_file, send_from_directory
+import os
+
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=False)
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    if filename.endswith('.pdf'):
+        return send_file(file_path, mimetype='application/pdf')
+    elif filename.lower().endswith(('.jpg', '.jpeg', '.png', '.gif')):
+        return send_file(file_path)
+    else:
+        return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=True)
+
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
