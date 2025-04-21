@@ -37,6 +37,7 @@
                 <th>LOT</th>
                 <th>გადაკალიბრებული</th>
                 <th>გადამოწმების შედეგი</th>
+                <th>ფაილი</th>
             </tr>
         </thead>
         <tbody>
@@ -52,6 +53,13 @@
                 <td>{{ result.lot_number }}</td>
                 <td>{% if result.recalibrated %}კი{% else %}არა{% endif %}</td>
                 <td>{{ result.retest_result }}</td>
+                <td>
+                    {% if result.file_path %}
+                        <a href="{{ url_for('uploaded_file', filename=result.file_path) }}" target="_blank">ნახვა</a>
+                    {% else %}
+                        არა
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
