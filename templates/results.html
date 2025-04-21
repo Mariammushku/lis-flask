@@ -50,7 +50,14 @@
                 <tr>
                     <td>{{ result.branch }}</td>
                     <td>{{ result.test_name }}</td>
-                    <td>{{ result.result }}</td>
+                    <td>
+                        {% if result.min <= result.result <= result.max %}
+                            <span class="text-success">{{ result.result }}</span>
+                        {% else %}
+                            <span class="text-danger">{{ result.result }}</span>
+                        {% endif %}
+                    </td>
+                    
                     <td>{{ result.date }}</td>
                     <td>{{ result.level }}</td>
                     <td>{{ result.min }}</td>
