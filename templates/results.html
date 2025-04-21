@@ -51,12 +51,17 @@
                     <td>{{ result.branch }}</td>
                     <td>{{ result.test_name }}</td>
                     <td>
-                        {% if result.min <= result.result <= result.max %}
-                            <span class="text-success">{{ result.result }}</span>
+                        {% if result.result and result.min and result.max %}
+                            {% if result.min|float <= result.result|float <= result.max|float %}
+                                <span class="text-success">{{ result.result }}</span>
+                            {% else %}
+                                <span class="text-danger">{{ result.result }}</span>
+                            {% endif %}
                         {% else %}
-                            <span class="text-danger">{{ result.result }}</span>
+                            {{ result.result }}
                         {% endif %}
                     </td>
+                    
                     
                     <td>{{ result.date }}</td>
                     <td>{{ result.level }}</td>
