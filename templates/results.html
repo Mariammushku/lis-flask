@@ -38,7 +38,7 @@
                 <th>გადაკალიბრებული</th>
                 <th>გადამოწმების შედეგი</th>
                 <th>ფაილი</th>
-                <th>წაშლა</th> <!-- ➡️ დამატებულია წაშლის სვეტი -->
+                <th>წაშლა</th> <!-- დამატებული წაშლის სვეტი -->
             </tr>
         </thead>
         <tbody>
@@ -56,4 +56,19 @@
                 <td>{{ result.retest_result }}</td>
                 <td>
                     {% if result.file_path %}
-                        <a href="{{ url_for('uploaded_file', filename=result.file_path) }}" target="_blank">ნახვა</
+                        <a href="{{ url_for('uploaded_file', filename=result.file_path) }}" target="_blank">ნახვა</a>
+                    {% else %}
+                        არა
+                    {% endif %}
+                </td>
+                <td>
+                    <form method="POST" action="/delete/{{ result.id }}" style="display:inline;">
+                        <button type="submit" onclick="return confirm('დარწმუნებული ხარ რომ გინდა წაშლა?')">წაშლა</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
