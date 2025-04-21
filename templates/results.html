@@ -3,72 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <title>შედეგების ნახვა</title>
+    <!-- Bootstrap ბიბლიოთეკა -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>შედეგები</h1>
+<body class="bg-light">
 
-    <form method="get" action="/results">
-        <label for="branch_filter">აირჩიე ფილიალი:</label>
-        <select name="branch_filter">
-            <option value="">ყველა ფილიალი</option>
-            <option value="თბილისი">თბილისი</option>
-            <option value="ქუთაისი">ქუთაისი</option>
-            <option value="ზუგდიდი">ზუგდიდი</option>
-        </select>
-        <button type="submit">გაფილტრე</button>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">შედეგები</h1>
+
+    <form method="get" action="/results" class="d-flex justify-content-center mb-4">
+        <div class="me-2">
+            <select name="branch_filter" class="form-select">
+                <option value="">ყველა ფილიალი</option>
+                <option value="თბილისი">თბილისი</option>
+                <option value="ქუთაისი">ქუთაისი</option>
+                <option value="ზუგდიდი">ზუგდიდი</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">გაფილტრე</button>
     </form>
 
-    <br>
-    <a href="/" style="text-decoration:none;">
-        <button type="button">მთავარ გვერდზე დაბრუნება</button>
-    </a>
-    <br><br>
+    <div class="text-center mb-4">
+        <a href="/" class="btn btn-secondary">მთავარ გვერდზე დაბრუნება</a>
+    </div>
 
-    <table border="1" cellpadding="5" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ფილიალი</th>
-                <th>ტესტის სახელი</th>
-                <th>შედეგი</th>
-                <th>თარიღი</th>
-                <th>დონე</th>
-                <th>მინ</th>
-                <th>მაქს</th>
-                <th>LOT</th>
-                <th>გადაკალიბრებული</th>
-                <th>გადამოწმების შედეგი</th>
-                <th>ფაილი</th>
-                <th>წაშლა</th> <!-- დამატებული წაშლის სვეტი -->
-            </tr>
-        </thead>
-        <tbody>
-            {% for result in test_results %}
-            <tr>
-                <td>{{ result.branch }}</td>
-                <td>{{ result.test_name }}</td>
-                <td>{{ result.result }}</td>
-                <td>{{ result.date }}</td>
-                <td>{{ result.level }}</td>
-                <td>{{ result.min }}</td>
-                <td>{{ result.max }}</td>
-                <td>{{ result.lot_number }}</td>
-                <td>{% if result.recalibrated %}კი{% else %}არა{% endif %}</td>
-                <td>{{ result.retest_result }}</td>
-                <td>
-                    {% if result.file_path %}
-                        <a href="{{ url_for('uploaded_file', filename=result.file_path) }}" target="_blank">ნახვა</a>
-                    {% else %}
-                        არა
-                    {% endif %}
-                </td>
-                <td>
-                    <form method="POST" action="/delete/{{ result.id }}" style="display:inline;">
-                        <button type="submit" onclick="return confirm('დარწმუნებული ხარ რომ გინდა წაშლა?')">წაშლა</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center">
+            <thead class="table-light">
+                <tr>
+                    <th>ფილიალი</th>
+                    <th>ტესტის სახელი</th>
+                    <th>შედეგი</th>
+                    <th>თარიღი</th>
+                    <th>დონე</th>
+                    <th>მინ</th>
+                    <th>მაქს</th>
+                    <th>LOT</th>
+                    <th>გადაკალიბრებული</th>
+                    <th>გადამოწმების შედეგი</th>
+                    <th>ფაილი</th>
+                    <th>წაშლა</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in test_results %}
+                <tr>
+                    <td>{{ result.branch }}</td>
+                    <td>{{ result.test_name }}</td>
+                    <td>{{ result.result }}</td>
+                    <td>{{ result.date }}</td>
+                    <td>{{ result.level }}</td>
+                    <td>{{ result.min }}</td>
+                    <td>{{ result.max }}</td>
+                    <td>{{ result.lot_number }}</td>
+                    <td>{% if result.recalibrated %}კი{% else %}არა{% endif %}</td>
+                    <td>{{ result.retest_result }}</td>
+                    <td>
+                        {% if result.file_path %}
+                            <a href="{{ url_for('uploaded_file', filename=result.file_path) }}" target="_blank" class="btn btn-sm btn-info text-white">ნახვა</a>
+                        {% else %}
+                            <span class="text-muted">არ არის</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <form method="POST" action="/delete/{{ result.id }}" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('დარწმუნებული ხარ რომ გინდა წაშლა?')">წაშლა</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
 </body>
 </html>
