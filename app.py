@@ -84,6 +84,12 @@ def uploaded_file(filename):
         return send_file(file_path)
     else:
         return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=True)
+@app.route('/delete/<int:result_id>', methods=['POST'])
+def delete_result(result_id):
+    result = TestResult.query.get_or_404(result_id)
+    db.session.delete(result)
+    db.session.commit()
+    return redirect('/results')
 
 
 if __name__ == '__main__':

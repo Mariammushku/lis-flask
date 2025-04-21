@@ -38,6 +38,7 @@
                 <th>გადაკალიბრებული</th>
                 <th>გადამოწმების შედეგი</th>
                 <th>ფაილი</th>
+                <th>წაშლა</th> <!-- ➡️ დამატებულია წაშლის სვეტი -->
             </tr>
         </thead>
         <tbody>
@@ -55,14 +56,4 @@
                 <td>{{ result.retest_result }}</td>
                 <td>
                     {% if result.file_path %}
-                        <a href="{{ url_for('uploaded_file', filename=result.file_path) }}" target="_blank">ნახვა</a>
-                    {% else %}
-                        არა
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
-</html>
+                        <a href="{{ url_for('uploaded_file', filename=result.file_path) }}" target="_blank">ნახვა</
